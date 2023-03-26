@@ -39,4 +39,16 @@ class ChatController extends Controller
 
         return redirect()->route('dashboard');
     }
+
+    /**
+     * @param int $id
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function join(int $id): object
+    {
+        $room = $this->roomRepository->getById($id);
+        $this->roomRepository->joinUser($room, auth()->id());
+
+        return redirect()->route('dashboard');
+    }
 }

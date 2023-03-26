@@ -30,6 +30,8 @@ Route::middleware('auth')->group(function () {
         })->name('chat-room-create');
 
         Route::post('room-store', 'ChatController@roomCreate')->name('chat-room-store');
+
+        Route::get('join/{id}', 'ChatController@join');
     });
 
     Route::get('logout', 'AuthController@logout')->name('logout');

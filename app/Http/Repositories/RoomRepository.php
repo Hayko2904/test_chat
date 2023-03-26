@@ -38,4 +38,9 @@ class RoomRepository
 
         return Room::query()->with('users')->find($room->id);
     }
+
+    public function getById(int $id)
+    {
+        return Room::find($id);
+    }
 }
