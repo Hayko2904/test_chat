@@ -32,6 +32,8 @@ Route::middleware('auth')->group(function () {
         Route::post('room-store', 'ChatController@roomCreate')->name('chat-room-store');
 
         Route::get('join/{id}', 'ChatController@join');
+        Route::get('get-messages', 'ChatController@getMessages');
+        Route::post('send-message', 'ChatController@sendMessage');
     });
 
     Route::get('logout', 'AuthController@logout')->name('logout');

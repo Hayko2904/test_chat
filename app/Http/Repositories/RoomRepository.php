@@ -4,6 +4,7 @@
 namespace App\Http\Repositories;
 
 
+use App\Models\Message;
 use App\Models\Room;
 
 class RoomRepository
@@ -39,8 +40,27 @@ class RoomRepository
         return Room::query()->with('users')->find($room->id);
     }
 
+    /**
+     * @param int $id
+     * @return mixed
+     */
     public function getById(int $id)
     {
         return Room::find($id);
+    }
+
+    /**
+     * @param int $roomId
+     * @param string $text
+     * @return \Illuminate\Database\Eloquent\Builder|\Illuminate\Database\Eloquent\Model
+     */
+    public function insertMessage(int $roomId, string $text)
+    {
+        return Message::query()
+            ->create([
+                'room_id' => $roomId,
+                'user_id' => auth()->id(),
+                'message' => $text
+            ]);
     }
 }

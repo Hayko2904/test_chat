@@ -15,16 +15,16 @@ class SendMessage implements ShouldBroadcastNow
 {
     use Dispatchable, InteractsWithSockets, SerializesModels;
 
-    public $data = ['asas'];
+    public $data;
 
     /**
      * Create a new event instance.
      *
      * @return void
      */
-    public function __construct()
+    public function __construct($message)
     {
-
+        $this->data = $message;
     }
 
     /**
@@ -34,7 +34,7 @@ class SendMessage implements ShouldBroadcastNow
      */
     public function broadcastOn()
     {
-        return new Channel('user-channel');
+        return new Channel('room-channel');
     }
 
     /**
@@ -44,7 +44,7 @@ class SendMessage implements ShouldBroadcastNow
      */
     public function broadcastAs()
     {
-        return 'UserEvent';
+        return 'SendMessage';
     }
     /**
      * The event's broadcast name.
@@ -53,6 +53,6 @@ class SendMessage implements ShouldBroadcastNow
      */
     public function broadcastWith()
     {
-        return ['title'=>'This notification from ItSolutionStuff.com'];
+        return $this->data;
     }
 }

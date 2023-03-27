@@ -25,6 +25,7 @@ return new class extends Migration
                 ->on('rooms')
                 ->cascadeOnDelete()
                 ->cascadeOnUpdate();
+            $table->text('message');
             $table->timestamps();
         });
     }

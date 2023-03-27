@@ -19,14 +19,5 @@
 </script>
 <script src="//{{ Request::getHost() }}:{{env('LARAVEL_ECHO_PORT')}}/socket.io/socket.io.js"></script>
 
-<script type="text/javascript">
-    window.onload = () => {
-        Echo.channel('user-channel')
-            .listen('.UserEvent', (data) => {
-                console.log(222222)
-                console.log(data)
-            });
-    }
-</script>
 @yield('script')
 </html>

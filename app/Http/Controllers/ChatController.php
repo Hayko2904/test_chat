@@ -51,4 +51,38 @@ class ChatController extends Controller
 
         return redirect()->route('dashboard');
     }
+
+    /**
+     * @param Request $request
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function getMessages(Request $request)
+    {
+        $request->validate([
+            'roomId' => 'required||exists:rooms,id'
+        ]);
+
+        $room = $this->roomRepository->getById($request->input('roomId'));
+        $room->load('messages');
+        $view = view('chat.messages', compact('room'))->render();
+
+        return response()->json($view);
+    }
+
+    /**
+     * @param Request $request
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function sendMessage(Request $request)
+    {
+        $request->validate([
+            'roomId' => 'required|exists:rooms,id',
+            'text' => 'required'
+        ]);
+
+        $message = $this->roomRepository->insertMessage($request->input('roomId'), $request->input('text'));
+        event(new SendMessage($message->toArray()));
+
+        return response()->json($message);
+    }
 }

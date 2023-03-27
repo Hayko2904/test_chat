@@ -30,7 +30,6 @@ class AuthController extends Controller
      */
     public function loginPage(): object
     {
-        event(new SendMessage());
         Auth::logout();
 
         return view('login');
